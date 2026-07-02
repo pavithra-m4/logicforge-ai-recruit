@@ -63,6 +63,27 @@ Traditional recruitment involves manually reviewing hundreds or even thousands o
 
 ---
 
+# 📸 Application Screenshots
+
+## 🔐 Company Login
+
+![Company Login](docs/login.png)
+
+---
+
+## 📊 Recruiter Dashboard
+
+![Recruiter Dashboard](docs/dashboard.png)
+
+---
+
+## 🤖 AI Ranking Results
+
+![Results](docs/results.png)
+
+---
+
+
 # 🏗️ System Workflow
 
 ```text
