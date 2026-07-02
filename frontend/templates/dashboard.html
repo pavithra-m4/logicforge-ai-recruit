@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Logic Forge AI Recruit</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#EEF5FF;
+}
+
+.topbar{
+
+height:90px;
+
+background:white;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:0 50px;
+
+box-shadow:0 6px 18px rgba(0,0,0,.08);
+
+}
+
+.logo{
+
+display:flex;
+
+align-items:center;
+
+gap:18px;
+
+}
+
+.logo-box{
+
+width:60px;
+height:60px;
+
+background:linear-gradient(135deg,#2563EB,#7C3AED);
+
+border-radius:18px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:30px;
+
+color:white;
+
+}
+
+.logo h2{
+
+font-size:34px;
+
+color:#2563EB;
+
+}
+
+.logo p{
+
+font-size:15px;
+
+color:#777;
+
+}
+
+.profile{
+
+display:flex;
+
+align-items:center;
+
+}
+
+.logout{
+
+background:#ef4444;
+
+padding:12px 24px;
+
+border-radius:12px;
+
+color:white;
+
+text-decoration:none;
+
+font-weight:600;
+
+transition:.3s;
+
+}
+
+.logout:hover{
+
+background:#dc2626;
+
+}
+
+.container{
+
+width:92%;
+
+max-width:1400px;
+
+margin:auto;
+
+}
+
+.hero{
+
+margin-top:35px;
+
+background:linear-gradient(120deg,#2563EB,#4F46E5);
+
+padding:50px;
+
+border-radius:25px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+color:white;
+
+overflow:hidden;
+
+}
+
+.hero h1{
+
+font-size:52px;
+
+margin-bottom:15px;
+
+}
+
+.hero p{
+
+font-size:20px;
+
+line-height:1.8;
+
+max-width:700px;
+
+}
+
+.hero-right{
+
+font-size:150px;
+
+opacity:.18;
+
+}
+
+<div class="container">
+
+<div class="hero">
+
+<div>
+
+<h1>
+
+Welcome Back, Recruiter!
+
+</h1>
+
+<p>
+
+Create a recruitment, upload candidates and let our AI
+identify the best talent within seconds.
+
+</p>
+
+</div>
+
+<div class="hero-right">
+
+🤖
+
+</div>
+
+</div>
+
+
+<div class="cards">
+
+<div class="card">
+
+<div class="icon blue">
+
+👥
+
+</div>
+
+<div>
+
+<h2>100K+</h2>
+
+<p>Total Candidates</p>
+
+<span class="growth">
+
+⬆ 12% this month
+
+</span>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon green">
+
+💼
+
+</div>
+
+<div>
+
+<h2>250</h2>
+
+<p>Recruitments</p>
+
+<span class="growth">
+
+⬆ 8 Active Jobs
+
+</span>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon orange">
+
+🤖
+
+</div>
+
+<div>
+
+<h2>1248</h2>
+
+<p>AI Matches Today</p>
+
+<span class="growth">
+
+⬆ 15%
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<style>
+
+.recruitment-section{
+
+margin-top:35px;
+
+}
+
+.upload-card{
+
+background:white;
+
+padding:40px;
+
+border-radius:22px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.upload-card h2{
+
+color:#2563EB;
+
+font-size:32px;
+
+margin-bottom:15px;
+
+}
+
+.upload-card p{
+
+color:#666;
+
+line-height:1.8;
+
+margin-bottom:30px;
+
+}
+
+.upload-box{
+
+display:block;
+
+background:#F8FBFF;
+
+border:2px dashed #2563EB;
+
+border-radius:18px;
+
+padding:30px;
+
+margin-bottom:25px;
+
+text-align:center;
+
+font-weight:600;
+
+color:#2563EB;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.upload-box:hover{
+
+background:#EEF5FF;
+
+transform:translateY(-4px);
+
+}
+
+.upload-box input{
+
+display:none;
+
+}
+
+.start-btn{
+
+width:100%;
+
+padding:18px;
+
+border:none;
+
+border-radius:15px;
+
+background:linear-gradient(135deg,#2563EB,#7C3AED);
+
+color:white;
+
+font-size:20px;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.start-btn:hover{
+
+transform:scale(1.02);
+
+box-shadow:0 10px 25px rgba(37,99,235,.35);
+
+}
+
+</style>
+
+
+
+<div class="recruitment-section">
+
+<div class="upload-card">
+
+<h2>
+
+🚀 Start New Recruitment
+
+</h2>
+
+<p>
+
+Upload your Job Description and Candidate Dataset.
+
+Our AI engine will analyze every resume,
+calculate matching scores and recommend
+the best candidates automatically.
+
+</p>
+
+<form
+action="/upload"
+method="POST"
+enctype="multipart/form-data">
+
+<label class="upload-box">
+
+📄 Upload Job Description
+
+<br><br>
+
+<small>
+
+Supported Formats :
+DOCX • PDF • TXT
+
+</small>
+
+<input
+type="file"
+name="job_file"
+required>
+
+</label>
+
+<label class="upload-box">
+
+👥 Upload Candidate Dataset
+
+<br><br>
+
+<small>
+
+Supported Format :
+JSONL
+
+</small>
+
+<input
+type="file"
+name="candidate_file"
+required>
+
+</label>
+
+<button class="start-btn">
+
+🚀 Start AI Ranking
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="footer">
+
+© 2026 Logic Forge AI Recruit • Powered by Artificial Intelligence
+
+</div>
+
+</body>
+
+</html>

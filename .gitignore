@@ -15,6 +15,15 @@ data/cache/
 data/processed/
 data/outputs/
 
+# Uploaded files (temporary)
+data/uploads/*
+
+# Keep the uploads folder in Git
+!data/uploads/.gitkeep
+
+# Generated CSV
+team_logicforge.csv
+
 # OS Files
 .DS_Store
 Thumbs.db

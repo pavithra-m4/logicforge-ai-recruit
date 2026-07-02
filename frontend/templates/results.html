@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Logic Forge AI Recruit</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+
+background:#eef5ff;
+padding:40px;
+
+}
+
+h1{
+
+text-align:center;
+font-size:48px;
+color:#2563eb;
+margin-bottom:10px;
+
+}
+
+.subtitle{
+
+text-align:center;
+font-size:22px;
+color:#555;
+margin-bottom:40px;
+
+}
+
+.dashboard{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:25px;
+
+margin-bottom:35px;
+
+}
+
+.card{
+
+background:white;
+
+padding:30px;
+
+border-radius:18px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+text-align:center;
+
+}
+
+.card h2{
+
+font-size:26px;
+
+color:#444;
+
+margin-bottom:20px;
+
+}
+
+.card p{
+
+font-size:52px;
+
+font-weight:bold;
+
+color:#2563eb;
+
+}
+
+.chart-box{
+
+background:white;
+
+border-radius:18px;
+
+padding:30px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+margin-bottom:35px;
+
+text-align:center;
+
+}
+
+.actions{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:25px;
+
+}
+
+.search{
+
+width:420px;
+
+padding:14px;
+
+border-radius:10px;
+
+border:1px solid #ccc;
+
+font-size:18px;
+
+}
+
+.download{
+
+background:#16a34a;
+
+padding:14px 28px;
+
+border-radius:10px;
+
+text-decoration:none;
+
+font-weight:bold;
+
+color:white;
+
+font-size:18px;
+
+}
+
+.download:hover{
+
+background:#15803d;
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+background:white;
+
+border-radius:15px;
+
+overflow:hidden;
+
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+th{
+
+background:#2563eb;
+
+color:white;
+
+padding:18px;
+
+font-size:22px;
+
+}
+
+td{
+
+padding:20px;
+
+font-size:18px;
+
+border-bottom:1px solid #eee;
+
+vertical-align:middle;
+
+}
+
+tr:hover{
+
+background:#f6f9ff;
+
+cursor:pointer;
+
+}
+
+.score{
+
+background:#16a34a;
+
+color:white;
+
+font-weight:bold;
+
+padding:10px;
+
+border-radius:20px;
+
+width:150px;
+
+margin:auto;
+
+text-align:center;
+
+}
+
+.status{
+
+font-weight:bold;
+
+color:#16a34a;
+
+font-size:20px;
+
+}
+
+.modal{
+
+display:none;
+
+position:fixed;
+
+left:0;
+
+top:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(0,0,0,.6);
+
+z-index:999;
+
+}
+
+.modal-content{
+
+background:white;
+
+width:75%;
+
+margin:3% auto;
+
+padding:35px;
+
+border-radius:18px;
+
+max-height:90vh;
+
+overflow:auto;
+
+}
+
+.close{
+
+float:right;
+
+font-size:35px;
+
+cursor:pointer;
+
+font-weight:bold;
+
+}
+
+.section-title{
+
+margin-top:30px;
+
+margin-bottom:15px;
+
+font-size:30px;
+
+color:#2563eb;
+
+}
+
+.info{
+
+font-size:20px;
+
+margin:10px 0;
+
+line-height:1.6;
+
+}
+
+.skill{
+
+display:inline-block;
+
+background:#2563eb;
+
+color:white;
+
+padding:8px 14px;
+
+border-radius:20px;
+
+margin:5px;
+
+font-size:16px;
+
+}
+
+.timeline{
+
+border-left:4px solid #2563eb;
+
+padding-left:20px;
+
+margin-bottom:20px;
+
+}
+
+.timeline h4{
+
+color:#2563eb;
+
+margin-bottom:5px;
+
+}
+
+.timeline p{
+
+margin-bottom:10px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🏆 AI Candidate Ranking</h1>
+
+<p class="subtitle">
+Logic Forge AI Recruit
+</p>
+
+<div class="dashboard">
+
+<div class="card">
+<h2>👥 Total Candidates</h2>
+<p>{{ total_candidates }}</p>
+</div>
+
+<div class="card">
+<h2>🏆 Best AI Score</h2>
+<p>{{ top_score }}</p>
+</div>
+
+<div class="card">
+<h2>⭐ Excellent Matches</h2>
+<p>{{ excellent }}</p>
+</div>
+
+<div class="card">
+<h2>📈 Average Score</h2>
+<p>{{ average_score }}</p>
+</div>
+
+</div>
+
+<div class="chart-box">
+
+    <h2 style="margin-bottom:20px;">
+        📊 Candidate Distribution
+    </h2>
+
+    <div
+    style="
+    width:320px;
+    height:320px;
+    margin:auto;
+    ">
+
+        <canvas id="candidateChart"></canvas>
+
+    </div>
+
+</div>
+
+<div class="actions">
+
+<input
+
+type="text"
+
+id="searchInput"
+
+class="search"
+
+placeholder="🔍 Search Candidate ID..."
+
+onkeyup="searchCandidate()">
+
+<a
+
+href="/download"
+
+class="download">
+
+📥 Download Ranked CSV
+
+</a>
+
+</div>
+
+<table id="candidateTable">
+
+<tr>
+
+<th>Rank</th>
+
+<th>Candidate ID</th>
+
+<th>AI Score</th>
+
+<th>Status</th>
+
+<th>AI Reason</th>
+
+</tr>
+{% for item in ranked %}
+
+<tr
+onclick="showCandidate(this)"
+
+data-id="{{ item.candidate.candidate_id }}"
+data-role="{{ item.role }}"
+data-company="{{ item.company }}"
+data-exp="{{ item.experience }}"
+data-location="{{ item.location }}"
+data-summary="{{ item.summary }}"
+data-score="{{ item.score }}"
+
+data-skills="{% for s in item.skills %}{{ s.name }}{% if not loop.last %}, {% endif %}{% endfor %}"
+
+data-education="{% for edu in item.education %}{{ edu.degree }} in {{ edu.field_of_study }} - {{ edu.institution }} ({{ edu.end_year }}){% if not loop.last %}|||{% endif %}{% endfor %}"
+
+data-career="{% for job in item.career %}{{ job.title }} at {{ job.company }} ({{ job.start_date }} - {{ job.end_date or 'Present' }}){% if not loop.last %}|||{% endif %}{% endfor %}"
+
+style="cursor:pointer;"
+>
+
+<td>{{ loop.index }}</td>
+
+<td>{{ item.candidate.candidate_id }}</td>
+
+<td>
+
+<div class="score">
+
+{{ "%.2f"|format(item.score) }}%
+
+</div>
+
+</td>
+
+<td>
+
+{% if item.score >= 90 %}
+
+🟢 Excellent
+
+{% elif item.score >= 75 %}
+
+🟡 Good
+
+{% else %}
+
+🔴 Average
+
+{% endif %}
+
+</td>
+
+<td style="text-align:left;">
+
+{{ item.reason }}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<!-- ========================= -->
+<!-- Candidate Popup -->
+<!-- ========================= -->
+
+<div id="candidateModal" class="modal">
+
+<div class="modal-content">
+
+<span class="close">&times;</span>
+
+<h2 id="modalName"></h2>
+
+<p class="info">
+<b>Role :</b>
+<span id="modalRole"></span>
+</p>
+
+<p class="info">
+<b>Company :</b>
+<span id="modalCompany"></span>
+</p>
+
+<p class="info">
+<b>Experience :</b>
+<span id="modalExperience"></span> Years
+</p>
+
+<p class="info">
+<b>Location :</b>
+<span id="modalLocation"></span>
+</p>
+
+<h2 class="section-title">
+Professional Summary
+</h2>
+
+<p id="modalSummary"></p>
+
+<h2 class="section-title">
+Top Skills
+</h2>
+
+<div id="modalSkills"></div>
+
+<h2 class="section-title">
+Education
+</h2>
+
+<ul id="modalEducation"></ul>
+
+<h2 class="section-title">
+Career History
+</h2>
+
+<div id="modalCareer"></div>
+
+<h2 class="section-title">
+🤖 AI Recommendation
+</h2>
+
+<div
+id="recommendationCard"
+style="
+background:#eef7ff;
+padding:20px;
+border-left:6px solid #2563eb;
+border-radius:12px;
+">
+</div>
+
+</div>
+
+</div>
+<script>
+
+const modal = document.getElementById("candidateModal");
+const closeBtn = document.querySelector(".close");
+
+function searchCandidate(){
+
+    let input=document.getElementById("searchInput");
+    let filter=input.value.toUpperCase();
+
+    let table=document.getElementById("candidateTable");
+
+    let tr=table.getElementsByTagName("tr");
+
+    for(let i=1;i<tr.length;i++){
+
+        let td=tr[i].getElementsByTagName("td")[1];
+
+        if(td){
+
+            let txt=td.textContent||td.innerText;
+
+            if(txt.toUpperCase().indexOf(filter)>-1){
+
+                tr[i].style.display="";
+
+            }else{
+
+                tr[i].style.display="none";
+
+            }
+
+        }
+
+    }
+
+}
+
+function showCandidate(row){
+
+    document.getElementById("modalName").innerText =
+    row.dataset.id;
+
+    document.getElementById("modalRole").innerText =
+    row.dataset.role;
+
+    document.getElementById("modalCompany").innerText =
+    row.dataset.company;
+
+    document.getElementById("modalExperience").innerText =
+    row.dataset.exp;
+
+    document.getElementById("modalLocation").innerText =
+    row.dataset.location;
+
+    document.getElementById("modalSummary").innerText =
+    row.dataset.summary;
+
+    // Skills
+
+    let skills=document.getElementById("modalSkills");
+
+    skills.innerHTML="";
+
+    row.dataset.skills.split(",").forEach(skill=>{
+
+        let span=document.createElement("span");
+
+        span.className="skill";
+
+        span.innerText=skill.trim();
+
+        skills.appendChild(span);
+
+    });
+
+    // Education
+
+    let education=document.getElementById("modalEducation");
+
+    education.innerHTML="";
+
+    if(row.dataset.education!=""){
+
+        row.dataset.education.split("|||").forEach(edu=>{
+
+            let li=document.createElement("li");
+
+            li.innerText=edu;
+
+            education.appendChild(li);
+
+        });
+
+    }
+
+    // Career
+
+    let career=document.getElementById("modalCareer");
+
+    career.innerHTML="";
+
+    if(row.dataset.career!=""){
+
+        row.dataset.career.split("|||").forEach(job=>{
+
+            career.innerHTML+=`
+
+            <div class="timeline">
+
+            <p>${job}</p>
+
+            </div>
+
+            `;
+
+        });
+
+    }
+
+    // AI Recommendation
+
+    let score=parseFloat(row.dataset.score);
+
+    let recommendation="";
+    let details="";
+
+    if(score>=95){
+
+        recommendation="⭐⭐⭐⭐⭐ STRONG HIRE";
+
+        details=`
+        ✔ Outstanding AI Score<br>
+        ✔ Excellent Candidate<br>
+        ✔ Highly Recommended
+        `;
+
+    }
+
+    else if(score>=85){
+
+        recommendation="⭐⭐⭐⭐ RECOMMENDED";
+
+        details=`
+        ✔ Good Candidate<br>
+        ✔ Strong Skills
+        `;
+
+    }
+
+    else if(score>=70){
+
+        recommendation="⭐⭐⭐ CONSIDER";
+
+        details=`
+        ✔ Needs Manual Review
+        `;
+
+    }
+
+    else{
+
+        recommendation="⭐⭐ REVIEW";
+
+        details=`
+        ✔ Low AI Score
+        `;
+
+    }
+
+    document.getElementById("recommendationCard").innerHTML=`
+
+    <h2 style="color:#2563eb;">
+    ${recommendation}
+    </h2>
+
+    <br>
+
+    <b>AI Score :</b>
+
+    ${score.toFixed(2)}
+
+    <br><br>
+
+    ${details}
+
+    `;
+
+    modal.style.display="block";
+
+}
+
+closeBtn.onclick=function(){
+
+    modal.style.display="none";
+
+}
+
+window.onclick=function(event){
+
+    if(event.target==modal){
+
+        modal.style.display="none";
+
+    }
+
+}
+
+// Candidate Distribution Chart
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const ctx = document
+        .getElementById("candidateChart")
+        .getContext("2d");
+
+    new Chart(ctx, {
+
+        type: "doughnut",
+
+        data: {
+
+            labels: [
+                "Excellent",
+                "Good",
+                "Average"
+            ],
+
+            datasets: [{
+
+                data: [
+                    {{ excellent }},
+                    {{ good }},
+                    {{ average }}
+                ],
+
+                backgroundColor: [
+                    "#22c55e",
+                    "#facc15",
+                    "#ef4444"
+                ]
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: false,
+
+            plugins: {
+
+                legend: {
+                    position: "bottom"
+                }
+
+            }
+
+        }
+
+    });
+
+});
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+    const ctx = document
+        .getElementById("candidateChart")
+        .getContext("2d");
+
+    new Chart(ctx, {
+
+        type: "doughnut",
+
+        data: {
+
+            labels: [
+                "Excellent",
+                "Good",
+                "Average"
+            ],
+
+            datasets: [{
+
+                data: [
+                    {{ excellent }},
+                    {{ good }},
+                    {{ average }}
+                ],
+
+                backgroundColor: [
+                    "#22c55e",
+                    "#facc15",
+                    "#ef4444"
+                ]
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: false,
+
+            plugins: {
+
+                legend: {
+                    position: "bottom"
+                }
+
+            }
+
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+
+</html>

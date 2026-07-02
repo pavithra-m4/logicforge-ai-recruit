@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Logic Forge AI Recruit</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+
+}
+
+body{
+
+height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:linear-gradient(135deg,#2563EB,#4F46E5,#7C3AED);
+
+overflow:hidden;
+
+color:white;
+
+}
+
+.container{
+
+width:700px;
+
+background:rgba(255,255,255,.12);
+
+backdrop-filter:blur(15px);
+
+padding:50px;
+
+border-radius:30px;
+
+text-align:center;
+
+box-shadow:0 20px 50px rgba(0,0,0,.25);
+
+}
+
+.robot{
+
+font-size:100px;
+
+animation:float 3s infinite ease-in-out;
+
+}
+
+h1{
+
+margin-top:10px;
+
+font-size:42px;
+
+}
+
+.subtitle{
+
+margin-top:15px;
+
+font-size:18px;
+
+opacity:.9;
+
+}
+
+.progress{
+
+margin-top:40px;
+
+height:18px;
+
+background:rgba(255,255,255,.2);
+
+border-radius:30px;
+
+overflow:hidden;
+
+}
+
+.bar{
+
+height:100%;
+
+width:0%;
+
+background:white;
+
+animation:loading 3s linear forwards;
+
+}
+
+.tasks{
+
+margin-top:35px;
+
+text-align:left;
+
+font-size:18px;
+
+line-height:2.2;
+
+}
+
+.task{
+
+opacity:.35;
+
+transition:.5s;
+
+}
+
+.active{
+
+opacity:1;
+
+}
+
+@keyframes loading{
+
+0%{
+
+width:0;
+
+}
+
+100%{
+
+width:100%;
+
+}
+
+}
+
+@keyframes float{
+
+0%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-15px);
+
+}
+
+100%{
+
+transform:translateY(0);
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="robot">
+
+🤖
+
+</div>
+
+<h1>
+
+Logic Forge AI Recruit
+
+</h1>
+
+<p class="subtitle">
+
+AI is analyzing resumes...
+
+</p>
+
+<div class="progress">
+
+<div class="bar"></div>
+
+</div>
+
+<div class="tasks">
+
+<div class="task active" id="t1">
+
+✔ Reading Job Description
+
+</div>
+
+<div class="task" id="t2">
+
+✔ Extracting Skills
+
+</div>
+
+<div class="task" id="t3">
+
+✔ Parsing Candidate Profiles
+
+</div>
+
+<div class="task" id="t4">
+
+✔ Ranking Candidates
+
+</div>
+
+<div class="task" id="t5">
+
+✔ Generating AI Recommendations
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const tasks=[
+
+"t1",
+"t2",
+"t3",
+"t4",
+"t5"
+
+];
+
+let i=1;
+
+const timer=setInterval(()=>{
+
+if(i<tasks.length){
+
+document.getElementById(tasks[i]).classList.add("active");
+
+i++;
+
+}
+
+},600);
+
+setTimeout(()=>{
+
+window.location.href="/process";
+
+},3200);
+
+</script>
+
+</body>
+
+</html>
