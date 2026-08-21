@@ -35,7 +35,7 @@ app = Flask(
 
 app.secret_key = "logicforge_secret_key"
 
-UPLOAD_FOLDER = Path("data/uploads")
+UPLOAD_FOLDER = Path("/tmp/uploads")
 UPLOAD_FOLDER.mkdir(
     parents=True,
     exist_ok=True
