@@ -6,501 +6,1179 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+      content="width=device-width, initial-scale=1.0">
 
-<title>Logic Forge AI Recruit</title>
-
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
+<title>Logic Forge | Dashboard</title>
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-background:#EEF5FF;
+
+:root {
+
+    --bg: #080d17;
+
+    --sidebar: #0a111d;
+
+    --panel: #0f1724;
+
+    --panel-2: #0c1421;
+
+    --border: #1d2a3b;
+
+    --text: #f4f7fb;
+
+    --muted: #8b98aa;
+
+    --subtle: #5f6d80;
+
+    --blue: #3b82f6;
+
+    --blue-dark: #2563eb;
+
+    --green: #34d399;
 }
 
-.topbar{
 
-height:90px;
-
-background:white;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:0 50px;
-
-box-shadow:0 6px 18px rgba(0,0,0,.08);
-
+html {
+    scroll-behavior: smooth;
 }
 
-.logo{
 
-display:flex;
+body {
 
-align-items:center;
+    min-height: 100vh;
 
-gap:18px;
+    background: var(--bg);
 
+    color: var(--text);
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
 }
 
-.logo-box{
 
-width:60px;
-height:60px;
+/* =========================================================
+   LAYOUT
+========================================================= */
 
-background:linear-gradient(135deg,#2563EB,#7C3AED);
+.layout {
 
-border-radius:18px;
+    display: flex;
 
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-font-size:30px;
-
-color:white;
-
+    min-height: 100vh;
 }
 
-.logo h2{
 
-font-size:34px;
+/* =========================================================
+   SIDEBAR
+========================================================= */
 
-color:#2563EB;
+.sidebar {
 
+    width: 260px;
+
+    flex-shrink: 0;
+
+    background: var(--sidebar);
+
+    border-right: 1px solid var(--border);
+
+    padding: 30px 22px;
+
+    display: flex;
+
+    flex-direction: column;
 }
 
-.logo p{
 
-font-size:15px;
+.brand {
 
-color:#777;
+    display: flex;
 
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 0 10px;
+
+    margin-bottom: 45px;
 }
 
-.profile{
 
-display:flex;
+.brand-mark {
 
-align-items:center;
+    width: 42px;
 
+    height: 42px;
+
+    border-radius: 8px;
+
+    background: var(--blue);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
 }
 
-.logout{
 
-background:#ef4444;
+.brand-name {
 
-padding:12px 24px;
+    font-size: 14px;
 
-border-radius:12px;
+    font-weight: 750;
 
-color:white;
-
-text-decoration:none;
-
-font-weight:600;
-
-transition:.3s;
-
+    letter-spacing: 1.8px;
 }
 
-.logout:hover{
 
-background:#dc2626;
+.brand-subtitle {
 
+    color: var(--muted);
+
+    font-size: 9px;
+
+    margin-top: 3px;
 }
 
-.container{
 
-width:92%;
+/* Navigation */
 
-max-width:1400px;
+.nav {
 
-margin:auto;
+    display: flex;
 
+    flex-direction: column;
+
+    gap: 7px;
 }
 
-.hero{
 
-margin-top:35px;
+.nav-item {
 
-background:linear-gradient(120deg,#2563EB,#4F46E5);
+    display: block;
 
-padding:50px;
+    padding: 13px 15px;
 
-border-radius:25px;
+    color: #9aa7b9;
 
-display:flex;
+    text-decoration: none;
 
-justify-content:space-between;
+    border-radius: 7px;
 
-align-items:center;
+    font-size: 12px;
 
-color:white;
+    border-left: 2px solid transparent;
 
-overflow:hidden;
-
+    transition: .2s;
 }
 
-.hero h1{
 
-font-size:52px;
+.nav-item:hover {
 
-margin-bottom:15px;
+    color: white;
 
+    background: #101b2c;
 }
 
-.hero p{
 
-font-size:20px;
+.nav-item.active {
 
-line-height:1.8;
+    color: #60a5fa;
 
-max-width:700px;
+    background: #111e32;
 
+    border-left-color: var(--blue);
 }
 
-.hero-right{
 
-font-size:150px;
+/* Sidebar bottom */
 
-opacity:.18;
+.sidebar-bottom {
 
+    margin-top: auto;
+
+    padding: 20px 10px 5px;
+
+    border-top: 1px solid var(--border);
 }
 
-<div class="container">
 
-<div class="hero">
+.status {
 
-<div>
+    display: flex;
 
-<h1>
+    align-items: center;
 
-Welcome Back, Recruiter!
+    gap: 8px;
 
-</h1>
+    color: var(--muted);
 
-<p>
+    font-size: 10px;
 
-Create a recruitment, upload candidates and let our AI
-identify the best talent within seconds.
-
-</p>
-
-</div>
-
-<div class="hero-right">
-
-🤖
-
-</div>
-
-</div>
-
-
-<div class="cards">
-
-<div class="card">
-
-<div class="icon blue">
-
-👥
-
-</div>
-
-<div>
-
-<h2>100K+</h2>
-
-<p>Total Candidates</p>
-
-<span class="growth">
-
-⬆ 12% this month
-
-</span>
-
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="icon green">
-
-💼
-
-</div>
-
-<div>
-
-<h2>250</h2>
-
-<p>Recruitments</p>
-
-<span class="growth">
-
-⬆ 8 Active Jobs
-
-</span>
-
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="icon orange">
-
-🤖
-
-</div>
-
-<div>
-
-<h2>1248</h2>
-
-<p>AI Matches Today</p>
-
-<span class="growth">
-
-⬆ 15%
-
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<style>
-
-.recruitment-section{
-
-margin-top:35px;
-
+    margin-bottom: 22px;
 }
 
-.upload-card{
 
-background:white;
+.status-dot {
 
-padding:40px;
+    width: 7px;
 
-border-radius:22px;
+    height: 7px;
 
-box-shadow:0 10px 25px rgba(0,0,0,.08);
+    border-radius: 50%;
 
+    background: var(--green);
+
+    box-shadow:
+        0 0 8px
+        rgba(52,211,153,.5);
 }
 
-.upload-card h2{
 
-color:#2563EB;
+.logout {
 
-font-size:32px;
+    color: #7e8b9e;
 
-margin-bottom:15px;
+    text-decoration: none;
 
+    font-size: 11px;
 }
 
-.upload-card p{
 
-color:#666;
+.logout:hover {
 
-line-height:1.8;
-
-margin-bottom:30px;
-
+    color: white;
 }
 
-.upload-box{
 
-display:block;
+/* =========================================================
+   MAIN
+========================================================= */
 
-background:#F8FBFF;
+.main {
 
-border:2px dashed #2563EB;
+    flex: 1;
 
-border-radius:18px;
+    min-width: 0;
 
-padding:30px;
+    padding: 45px 55px;
 
-margin-bottom:25px;
-
-text-align:center;
-
-font-weight:600;
-
-color:#2563EB;
-
-cursor:pointer;
-
-transition:.3s;
-
+    max-width: 1450px;
 }
 
-.upload-box:hover{
 
-background:#EEF5FF;
+/* Header */
 
-transform:translateY(-4px);
+.top-header {
 
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    margin-bottom: 35px;
 }
 
-.upload-box input{
 
-display:none;
+.eyebrow {
 
+    color: #60a5fa;
+
+    font-size: 10px;
+
+    font-weight: 750;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 10px;
 }
 
-.start-btn{
 
-width:100%;
+.top-header h1 {
 
-padding:18px;
+    font-size: 38px;
 
-border:none;
-
-border-radius:15px;
-
-background:linear-gradient(135deg,#2563EB,#7C3AED);
-
-color:white;
-
-font-size:20px;
-
-font-weight:600;
-
-cursor:pointer;
-
-transition:.3s;
-
+    letter-spacing: -1px;
 }
 
-.start-btn:hover{
 
-transform:scale(1.02);
+.top-header p {
 
-box-shadow:0 10px 25px rgba(37,99,235,.35);
+    color: var(--muted);
 
+    font-size: 12px;
+
+    margin-top: 8px;
+}
+
+
+.recruiter {
+
+    border: 1px solid var(--border);
+
+    background: var(--panel);
+
+    border-radius: 8px;
+
+    padding: 10px 15px;
+
+    color: #b8c4d5;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   INFO CARDS
+========================================================= */
+
+.info-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 28px;
+}
+
+
+.info-card {
+
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    padding: 23px;
+}
+
+
+.info-label {
+
+    color: var(--subtle);
+
+    font-size: 9px;
+
+    font-weight: 750;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 12px;
+}
+
+
+.info-value {
+
+    font-size: 22px;
+
+    font-weight: 650;
+
+    margin-bottom: 7px;
+}
+
+
+.info-description {
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   SCREENING SECTION
+========================================================= */
+
+.screening-section {
+
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    scroll-margin-top: 30px;
+}
+
+
+.screening-header {
+
+    padding: 30px 35px;
+
+    border-bottom: 1px solid var(--border);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+}
+
+
+.screening-number {
+
+    color: #60a5fa;
+
+    font-size: 10px;
+
+    font-weight: 750;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 12px;
+}
+
+
+.screening-header h2 {
+
+    font-size: 25px;
+
+    letter-spacing: -.4px;
+
+    margin-bottom: 8px;
+}
+
+
+.screening-header p {
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+
+.screening-tag {
+
+    border: 1px solid #24518c;
+
+    color: #60a5fa;
+
+    border-radius: 6px;
+
+    padding: 9px 13px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+/* Upload area */
+
+.upload-area {
+
+    padding: 30px 35px;
+}
+
+
+.upload-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 18px;
+}
+
+
+.upload-card {
+
+    background: var(--panel-2);
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    padding: 26px;
+}
+
+
+.upload-number {
+
+    width: 32px;
+
+    height: 32px;
+
+    border: 1px solid #27528b;
+
+    color: #60a5fa;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 6px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    margin-bottom: 20px;
+}
+
+
+.upload-card h3 {
+
+    font-size: 16px;
+
+    margin-bottom: 8px;
+}
+
+
+.upload-card p {
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    line-height: 1.7;
+
+    min-height: 35px;
+
+    margin-bottom: 20px;
+}
+
+
+.file-input {
+
+    width: 100%;
+
+    background: #080f1a;
+
+    border: 1px solid var(--border);
+
+    color: #91a0b3;
+
+    border-radius: 6px;
+
+    padding: 10px;
+
+    font-size: 10px;
+}
+
+
+.file-input::file-selector-button {
+
+    background: #17243a;
+
+    color: #cbd5e1;
+
+    border: 1px solid #2a3b53;
+
+    padding: 8px 11px;
+
+    border-radius: 5px;
+
+    margin-right: 10px;
+
+    cursor: pointer;
+}
+
+
+.file-note {
+
+    color: var(--subtle);
+
+    font-size: 9px;
+
+    margin-top: 10px;
+}
+
+
+/* Submit */
+
+.screening-footer {
+
+    border-top: 1px solid var(--border);
+
+    padding: 22px 35px;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+
+.processing-note {
+
+    color: var(--subtle);
+
+    font-size: 9px;
+}
+
+
+.start-button {
+
+    border: none;
+
+    background: var(--blue);
+
+    color: white;
+
+    padding: 13px 25px;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+.start-button:hover {
+
+    background: var(--blue-dark);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(37,99,235,.22);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+
+    text-align: center;
+
+    color: var(--subtle);
+
+    font-size: 9px;
+
+    padding: 30px 0 5px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width: 1100px) {
+
+    .sidebar {
+
+        width: 220px;
+    }
+
+    .main {
+
+        padding: 35px;
+    }
+
+    .info-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+
+
+@media(max-width: 800px) {
+
+    .layout {
+
+        display: block;
+    }
+
+    .sidebar {
+
+        width: 100%;
+
+        min-height: auto;
+
+        border-right: none;
+
+        border-bottom: 1px solid var(--border);
+
+        padding: 18px;
+    }
+
+    .brand {
+
+        margin-bottom: 18px;
+    }
+
+    .nav {
+
+        flex-direction: row;
+    }
+
+    .sidebar-bottom {
+
+        display: none;
+    }
+
+    .main {
+
+        padding: 25px 18px;
+    }
+
+    .upload-grid {
+
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media(max-width: 550px) {
+
+    .info-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .top-header {
+
+        display: block;
+    }
+
+    .recruiter {
+
+        margin-top: 18px;
+    }
+
+    .screening-header {
+
+        display: block;
+    }
+
+    .screening-tag {
+
+        display: inline-block;
+
+        margin-top: 18px;
+    }
+
+    .screening-footer {
+
+        display: block;
+    }
+
+    .processing-note {
+
+        margin-bottom: 15px;
+    }
+
+    .start-button {
+
+        width: 100%;
+    }
 }
 
 </style>
 
+</head>
 
 
-<div class="recruitment-section">
+<body>
 
-<div class="upload-card">
 
-<h2>
+<div class="layout">
 
-🚀 Start New Recruitment
 
-</h2>
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
 
-<p>
+    <aside class="sidebar">
 
-Upload your Job Description and Candidate Dataset.
 
-Our AI engine will analyze every resume,
-calculate matching scores and recommend
-the best candidates automatically.
+        <div class="brand">
 
-</p>
+            <div class="brand-mark">
+                LF
+            </div>
 
-<form
-action="/upload"
-method="POST"
-enctype="multipart/form-data">
+            <div>
 
-<label class="upload-box">
+                <div class="brand-name">
+                    LOGIC FORGE
+                </div>
 
-📄 Upload Job Description
+                <div class="brand-subtitle">
+                    Recruitment Intelligence
+                </div>
 
-<br><br>
+            </div>
 
-<small>
+        </div>
 
-Supported Formats :
-DOCX • PDF • TXT
 
-</small>
+        <nav class="nav">
 
-<input
-type="file"
-name="job_file"
-required>
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="nav-item active">
 
-</label>
+                Dashboard
 
-<label class="upload-box">
+            </a>
 
-👥 Upload Candidate Dataset
 
-<br><br>
+            <a
+                href="{{ url_for('dashboard') }}#screening"
+                class="nav-item">
 
-<small>
+                Screening
 
-Supported Format :
-JSONL
+            </a>
 
-</small>
+        </nav>
 
-<input
-type="file"
-name="candidate_file"
-required>
 
-</label>
+        <div class="sidebar-bottom">
 
-<button class="start-btn">
+            <div class="status">
 
-🚀 Start AI Ranking
+                <span class="status-dot"></span>
 
-</button>
+                System operational
 
-</form>
+            </div>
+
+
+            <a
+                href="{{ url_for('logout') }}"
+                class="logout">
+
+                Sign out
+
+            </a>
+
+        </div>
+
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <!-- Header -->
+
+        <header class="top-header">
+
+            <div>
+
+                <div class="eyebrow">
+                    RECRUITMENT WORKSPACE
+                </div>
+
+                <h1>
+                    Screening Dashboard
+                </h1>
+
+                <p>
+                    Evaluate large applicant pools against
+                    job-specific requirements.
+                </p>
+
+            </div>
+
+
+            <div class="recruiter">
+
+                Recruiter
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             INFORMATION CARDS
+        ================================================== -->
+
+        <section class="info-grid">
+
+
+            <div class="info-card">
+
+                <div class="info-label">
+                    APPLICANT CAPACITY
+                </div>
+
+                <div class="info-value">
+                    100K+
+                </div>
+
+                <div class="info-description">
+                    Candidate profiles supported
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-label">
+                    SCREENING METHOD
+                </div>
+
+                <div class="info-value">
+                    AI Ranking
+                </div>
+
+                <div class="info-description">
+                    Job-specific candidate evaluation
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-label">
+                    APPLICANT POOL
+                </div>
+
+                <div class="info-value">
+                    Large Scale
+                </div>
+
+                <div class="info-description">
+                    Designed for high-volume recruitment
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-label">
+                    OUTPUT
+                </div>
+
+                <div class="info-value">
+                    Ranked List
+                </div>
+
+                <div class="info-description">
+                    Scores and candidate insights
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             SCREENING
+        ================================================== -->
+
+        <section
+            id="screening"
+            class="screening-section">
+
+
+            <div class="screening-header">
+
+                <div>
+
+                    <div class="screening-number">
+                        01 / NEW SCREENING
+                    </div>
+
+                    <h2>
+                        Start New Screening
+                    </h2>
+
+                    <p>
+                        Upload the position requirements and
+                        applicant dataset to generate a
+                        job-specific candidate ranking.
+                    </p>
+
+                </div>
+
+
+                <div class="screening-tag">
+                    JOB-SPECIFIC
+                </div>
+
+            </div>
+
+
+            <form
+                action="{{ url_for('upload') }}"
+                method="POST"
+                enctype="multipart/form-data">
+
+
+                <div class="upload-area">
+
+
+                    <div class="upload-grid">
+
+
+                        <!-- JOB DESCRIPTION -->
+
+                        <div class="upload-card">
+
+                            <div class="upload-number">
+                                01
+                            </div>
+
+                            <h3>
+                                Job Description
+                            </h3>
+
+                            <p>
+                                Upload the requirements,
+                                responsibilities, skills and
+                                experience expected for the position.
+                            </p>
+
+
+                            <input
+                                class="file-input"
+                                type="file"
+                                name="job_file"
+                                accept=".pdf,.docx,.txt"
+                                required>
+
+
+                            <div class="file-note">
+                                Accepted formats: PDF, DOCX, TXT
+                            </div>
+
+                        </div>
+
+
+                        <!-- CANDIDATES -->
+
+                        <div class="upload-card">
+
+                            <div class="upload-number">
+                                02
+                            </div>
+
+                            <h3>
+                                Candidate Dataset
+                            </h3>
+
+                            <p>
+                                Upload the complete applicant pool
+                                using the required JSONL candidate
+                                profile format.
+                            </p>
+
+
+                            <input
+                                class="file-input"
+                                type="file"
+                                name="candidate_file"
+                                accept=".jsonl"
+                                required>
+
+
+                            <div class="file-note">
+                                Accepted format: JSONL
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="screening-footer">
+
+
+                    <div class="processing-note">
+
+                        Candidate data is processed for this
+                        screening session.
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="start-button">
+
+                        Start Screening
+
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+
+        </section>
+
+
+        <div class="footer">
+
+            Logic Forge AI Recruit
+            &nbsp;•&nbsp;
+            Recruitment Intelligence Platform
+
+        </div>
+
+
+    </main>
+
 
 </div>
 
-</div>
-
-
-
-
-
-
-<div class="footer">
-
-© 2026 Logic Forge AI Recruit • Powered by Artificial Intelligence
-
-</div>
 
 </body>
 

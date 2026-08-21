@@ -1,908 +1,1475 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Logic Forge AI Recruit</title>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,Helvetica,sans-serif;
-}
-
-body{
-
-background:#eef5ff;
-padding:40px;
-
-}
-
-h1{
-
-text-align:center;
-font-size:48px;
-color:#2563eb;
-margin-bottom:10px;
-
-}
-
-.subtitle{
-
-text-align:center;
-font-size:22px;
-color:#555;
-margin-bottom:40px;
-
-}
-
-.dashboard{
-
-display:grid;
-
-grid-template-columns:repeat(4,1fr);
-
-gap:25px;
-
-margin-bottom:35px;
-
-}
-
-.card{
-
-background:white;
-
-padding:30px;
-
-border-radius:18px;
-
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-
-text-align:center;
-
-}
-
-.card h2{
-
-font-size:26px;
-
-color:#444;
-
-margin-bottom:20px;
-
-}
-
-.card p{
-
-font-size:52px;
-
-font-weight:bold;
-
-color:#2563eb;
-
-}
-
-.chart-box{
-
-background:white;
-
-border-radius:18px;
-
-padding:30px;
-
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-
-margin-bottom:35px;
-
-text-align:center;
-
-}
-
-.actions{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:25px;
-
-}
-
-.search{
-
-width:420px;
-
-padding:14px;
-
-border-radius:10px;
-
-border:1px solid #ccc;
-
-font-size:18px;
-
-}
-
-.download{
-
-background:#16a34a;
-
-padding:14px 28px;
-
-border-radius:10px;
-
-text-decoration:none;
-
-font-weight:bold;
-
-color:white;
-
-font-size:18px;
-
-}
-
-.download:hover{
-
-background:#15803d;
-
-}
-
-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-background:white;
-
-border-radius:15px;
-
-overflow:hidden;
-
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-
-}
-
-th{
-
-background:#2563eb;
-
-color:white;
-
-padding:18px;
-
-font-size:22px;
-
-}
-
-td{
-
-padding:20px;
-
-font-size:18px;
-
-border-bottom:1px solid #eee;
-
-vertical-align:middle;
-
-}
-
-tr:hover{
-
-background:#f6f9ff;
-
-cursor:pointer;
-
-}
-
-.score{
-
-background:#16a34a;
-
-color:white;
-
-font-weight:bold;
-
-padding:10px;
-
-border-radius:20px;
-
-width:150px;
-
-margin:auto;
-
-text-align:center;
-
-}
-
-.status{
-
-font-weight:bold;
-
-color:#16a34a;
-
-font-size:20px;
-
-}
-
-.modal{
-
-display:none;
-
-position:fixed;
-
-left:0;
-
-top:0;
-
-width:100%;
-
-height:100%;
-
-background:rgba(0,0,0,.6);
-
-z-index:999;
-
-}
-
-.modal-content{
-
-background:white;
-
-width:75%;
-
-margin:3% auto;
-
-padding:35px;
-
-border-radius:18px;
-
-max-height:90vh;
-
-overflow:auto;
-
-}
-
-.close{
-
-float:right;
-
-font-size:35px;
-
-cursor:pointer;
-
-font-weight:bold;
-
-}
-
-.section-title{
-
-margin-top:30px;
-
-margin-bottom:15px;
-
-font-size:30px;
-
-color:#2563eb;
-
-}
-
-.info{
-
-font-size:20px;
-
-margin:10px 0;
-
-line-height:1.6;
-
-}
-
-.skill{
-
-display:inline-block;
-
-background:#2563eb;
-
-color:white;
-
-padding:8px 14px;
-
-border-radius:20px;
-
-margin:5px;
-
-font-size:16px;
-
-}
-
-.timeline{
-
-border-left:4px solid #2563eb;
-
-padding-left:20px;
-
-margin-bottom:20px;
-
-}
-
-.timeline h4{
-
-color:#2563eb;
-
-margin-bottom:5px;
-
-}
-
-.timeline p{
-
-margin-bottom:10px;
-
-}
-
-</style>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Screening Results | Logic Forge</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: #080b12;
+            color: #e8ecf4;
+            min-height: 100vh;
+        }
+
+        /* =====================================================
+           TOP BAR
+        ===================================================== */
+
+        .topbar {
+            height: 76px;
+            background: #0d111a;
+            border-bottom: 1px solid #202633;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 42px;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-mark {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 9px;
+
+            background: #2563eb;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 15px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .brand-name {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -.3px;
+        }
+
+        .brand-subtitle {
+            font-size: 11px;
+            color: #7f8899;
+            margin-top: 2px;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            text-decoration: none;
+            border: 1px solid #2b3444;
+            color: #dbe2ed;
+            background: #111722;
+
+            padding: 10px 16px;
+            border-radius: 8px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            transition: .2s;
+        }
+
+        .btn:hover {
+            background: #171e2b;
+            border-color: #3b4658;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        /* =====================================================
+           PAGE
+        ===================================================== */
+
+        .page {
+            width: 94%;
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 32px 0 60px;
+        }
+
+        .page-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 26px;
+        }
+
+        .page-heading h1 {
+            font-size: 28px;
+            letter-spacing: -.7px;
+        }
+
+        .page-heading p {
+            margin-top: 7px;
+            color: #7f8899;
+            font-size: 13px;
+        }
+
+        /* =====================================================
+           STATISTICS
+        ===================================================== */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .stat {
+            background: #0d111a;
+            border: 1px solid #202633;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .stat-label {
+            color: #7f8899;
+            font-size: 12px;
+            margin-bottom: 9px;
+        }
+
+        .stat-value {
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .stat-value.blue {
+            color: #60a5fa;
+        }
+
+        .stat-value.green {
+            color: #4ade80;
+        }
+
+        .stat-value.amber {
+            color: #fbbf24;
+        }
+
+        .stat-value.red {
+            color: #fb7185;
+        }
+
+        /* =====================================================
+           RESULTS HEADER
+        ===================================================== */
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 14px;
+        }
+
+        .results-header h2 {
+            font-size: 18px;
+        }
+
+        .results-header span {
+            color: #778195;
+            font-size: 12px;
+        }
+
+        /* =====================================================
+           CANDIDATE LIST
+        ===================================================== */
+
+        .candidate-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .candidate-card {
+            background: #0d111a;
+            border: 1px solid #202633;
+            border-radius: 12px;
+
+            transition: .2s;
+            overflow: hidden;
+        }
+
+        .candidate-card:hover {
+            border-color: #354052;
+            background: #0f141e;
+        }
+
+        .candidate-main {
+            display: grid;
+
+            grid-template-columns:
+                58px
+                minmax(260px, 2fr)
+                120px
+                145px
+                120px
+                42px;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 18px 20px;
+
+            cursor: pointer;
+        }
+
+        .rank {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 8px;
+
+            background: #151c29;
+            border: 1px solid #293344;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            color: #9aa5b7;
+        }
+
+        .candidate-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #edf2fa;
+        }
+
+        .candidate-role {
+            margin-top: 4px;
+            font-size: 12px;
+            color: #7f8899;
+        }
+
+        .candidate-company {
+            color: #aab3c2;
+        }
+
+        .score-box {
+            text-align: center;
+        }
+
+        .score {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .score-label {
+            font-size: 10px;
+            color: #707b8d;
+            margin-top: 3px;
+        }
+
+        .score-high {
+            color: #4ade80;
+        }
+
+        .score-medium {
+            color: #fbbf24;
+        }
+
+        .score-low {
+            color: #fb7185;
+        }
+
+        .mini-stat {
+            text-align: center;
+        }
+
+        .mini-stat strong {
+            display: block;
+            font-size: 13px;
+            color: #dce3ed;
+        }
+
+        .mini-stat span {
+            display: block;
+            margin-top: 3px;
+            font-size: 10px;
+            color: #707b8d;
+        }
+
+        .arrow {
+            color: #6f7a8c;
+            font-size: 18px;
+            transition: transform .2s;
+        }
+
+        .candidate-card.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        /* =====================================================
+           DETAILS
+        ===================================================== */
+
+        .candidate-details {
+            display: none;
+
+            border-top: 1px solid #202633;
+
+            padding: 24px;
+            background: #0a0e16;
+        }
+
+        .candidate-card.open .candidate-details {
+            display: block;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr 1fr;
+            gap: 18px;
+        }
+
+        .detail-section {
+            background: #0e141e;
+            border: 1px solid #202938;
+            border-radius: 10px;
+            padding: 18px;
+        }
+
+        .detail-section.full {
+            grid-column: 1 / -1;
+        }
+
+        .detail-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+            color: #7f8a9c;
+
+            margin-bottom: 14px;
+        }
+
+        .detail-text {
+            font-size: 12px;
+            line-height: 1.7;
+            color: #b7c0cf;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+
+            padding: 8px 0;
+
+            border-bottom: 1px solid #1a2230;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #727e90;
+            font-size: 11px;
+        }
+
+        .info-value {
+            color: #d6dde8;
+            font-size: 11px;
+            text-align: right;
+        }
+
+        /* =====================================================
+           SKILLS
+        ===================================================== */
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .skill {
+            background: #151d2a;
+            border: 1px solid #293548;
+
+            color: #c9d3e1;
+
+            border-radius: 6px;
+
+            padding: 6px 9px;
+
+            font-size: 10px;
+        }
+
+        .skill.matched {
+            border-color: #166534;
+            background: #0c2417;
+            color: #86efac;
+        }
+
+        .skill.missing {
+            border-color: #7f1d1d;
+            background: #250f12;
+            color: #fca5a5;
+        }
+
+        /* =====================================================
+           CAREER
+        ===================================================== */
+
+        .career-item {
+            border-left: 2px solid #293548;
+            padding-left: 15px;
+            margin-bottom: 18px;
+        }
+
+        .career-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .career-title {
+            color: #dce3ed;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .career-company {
+            color: #60a5fa;
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        .career-meta {
+            color: #687487;
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        .career-description {
+            color: #9ca7b7;
+            font-size: 11px;
+            line-height: 1.6;
+            margin-top: 8px;
+        }
+
+        /* =====================================================
+           EDUCATION
+        ===================================================== */
+
+        .education-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #1b2330;
+        }
+
+        .education-item:last-child {
+            border-bottom: none;
+        }
+
+        .education-degree {
+            color: #dce3ed;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .education-school {
+            color: #8d98a9;
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        .education-meta {
+            color: #687487;
+            font-size: 10px;
+            margin-top: 3px;
+        }
+
+        /* =====================================================
+           REASON
+        ===================================================== */
+
+        .reason {
+            background: #101827;
+            border: 1px solid #24324a;
+
+            border-radius: 9px;
+
+            padding: 15px;
+
+            color: #b9c6d8;
+
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer {
+            text-align: center;
+            color: #525e70;
+            font-size: 11px;
+            padding: 35px 0;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media(max-width: 1050px) {
+
+            .stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .candidate-main {
+                grid-template-columns:
+                    48px
+                    1fr
+                    100px
+                    100px
+                    40px;
+            }
+
+            .mini-stat {
+                display: none;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media(max-width: 700px) {
+
+            .topbar {
+                padding: 0 18px;
+            }
+
+            .page {
+                width: 94%;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .page-heading {
+                align-items: flex-start;
+                gap: 15px;
+                flex-direction: column;
+            }
+
+            .candidate-main {
+                grid-template-columns:
+                    42px
+                    1fr
+                    70px
+                    30px;
+            }
+
+            .candidate-main .mini-stat {
+                display: none;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-section.full {
+                grid-column: auto;
+            }
+
+        }
+
+    </style>
 
 </head>
 
 <body>
 
-<h1>🏆 AI Candidate Ranking</h1>
+<!-- =========================================================
+     TOP BAR
+========================================================= -->
 
-<p class="subtitle">
-Logic Forge AI Recruit
-</p>
+<header class="topbar">
 
-<div class="dashboard">
+    <div class="brand">
 
-<div class="card">
-<h2>👥 Total Candidates</h2>
-<p>{{ total_candidates }}</p>
-</div>
+        <div class="brand-mark">
+            LF
+        </div>
 
-<div class="card">
-<h2>🏆 Best AI Score</h2>
-<p>{{ top_score }}</p>
-</div>
+        <div>
 
-<div class="card">
-<h2>⭐ Excellent Matches</h2>
-<p>{{ excellent }}</p>
-</div>
+            <div class="brand-name">
+                Logic Forge
+            </div>
 
-<div class="card">
-<h2>📈 Average Score</h2>
-<p>{{ average_score }}</p>
-</div>
+            <div class="brand-subtitle">
+                AI Recruitment Platform
+            </div>
 
-</div>
-
-<div class="chart-box">
-
-    <h2 style="margin-bottom:20px;">
-        📊 Candidate Distribution
-    </h2>
-
-    <div
-    style="
-    width:320px;
-    height:320px;
-    margin:auto;
-    ">
-
-        <canvas id="candidateChart"></canvas>
+        </div>
 
     </div>
 
-</div>
 
-<div class="actions">
+    <div class="top-actions">
 
-<input
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="btn">
 
-type="text"
+            New Screening
 
-id="searchInput"
+        </a>
 
-class="search"
+        <a
+            href="{{ url_for('download') }}"
+            class="btn btn-primary">
 
-placeholder="🔍 Search Candidate ID..."
+            Download Results
 
-onkeyup="searchCandidate()">
+        </a>
 
-<a
+        <a
+            href="{{ url_for('logout') }}"
+            class="btn">
 
-href="/download"
+            Sign Out
 
-class="download">
+        </a>
 
-📥 Download Ranked CSV
+    </div>
 
-</a>
+</header>
 
-</div>
 
-<table id="candidateTable">
+<!-- =========================================================
+     PAGE
+========================================================= -->
 
-<tr>
+<main class="page">
 
-<th>Rank</th>
 
-<th>Candidate ID</th>
+    <div class="page-heading">
 
-<th>AI Score</th>
+        <div>
 
-<th>Status</th>
+            <h1>
+                Screening Results
+            </h1>
 
-<th>AI Reason</th>
+            <p>
+                Ranked candidates based on Job Description
+                alignment and candidate profile strength.
+            </p>
 
-</tr>
-{% for item in ranked %}
+        </div>
 
-<tr
-onclick="showCandidate(this)"
+    </div>
 
-data-id="{{ item.candidate.candidate_id }}"
-data-role="{{ item.role }}"
-data-company="{{ item.company }}"
-data-exp="{{ item.experience }}"
-data-location="{{ item.location }}"
-data-summary="{{ item.summary }}"
-data-score="{{ item.score }}"
 
-data-skills="{% for s in item.skills %}{{ s.name }}{% if not loop.last %}, {% endif %}{% endfor %}"
+    <!-- =====================================================
+         STATISTICS
+    ====================================================== -->
 
-data-education="{% for edu in item.education %}{{ edu.degree }} in {{ edu.field_of_study }} - {{ edu.institution }} ({{ edu.end_year }}){% if not loop.last %}|||{% endif %}{% endfor %}"
+    <section class="stats">
 
-data-career="{% for job in item.career %}{{ job.title }} at {{ job.company }} ({{ job.start_date }} - {{ job.end_date or 'Present' }}){% if not loop.last %}|||{% endif %}{% endfor %}"
+        <div class="stat">
 
-style="cursor:pointer;"
->
+            <div class="stat-label">
+                Applicants Screened
+            </div>
 
-<td>{{ loop.index }}</td>
+            <div class="stat-value blue">
+                {{ total_candidates }}
+            </div>
 
-<td>{{ item.candidate.candidate_id }}</td>
+        </div>
 
-<td>
 
-<div class="score">
+        <div class="stat">
 
-{{ "%.2f"|format(item.score) }}%
+            <div class="stat-label">
+                Best Score
+            </div>
 
-</div>
+            <div class="stat-value green">
+                {{ top_score }}
+            </div>
 
-</td>
+        </div>
 
-<td>
 
-{% if item.score >= 90 %}
+        <div class="stat">
 
-🟢 Excellent
+            <div class="stat-label">
+                Average Score
+            </div>
 
-{% elif item.score >= 75 %}
+            <div class="stat-value blue">
+                {{ average_score }}
+            </div>
 
-🟡 Good
+        </div>
 
-{% else %}
 
-🔴 Average
+        <div class="stat">
 
-{% endif %}
+            <div class="stat-label">
+                Strong Matches
+            </div>
 
-</td>
+            <div class="stat-value green">
+                {{ excellent }}
+            </div>
 
-<td style="text-align:left;">
+        </div>
 
-{{ item.reason }}
 
-</td>
+        <div class="stat">
 
-</tr>
+            <div class="stat-label">
+                Review Required
+            </div>
 
-{% endfor %}
+            <div class="stat-value amber">
+                {{ good + average }}
+            </div>
 
-</table>
+        </div>
 
-<!-- ========================= -->
-<!-- Candidate Popup -->
-<!-- ========================= -->
+    </section>
 
-<div id="candidateModal" class="modal">
 
-<div class="modal-content">
+    <!-- =====================================================
+         RESULT LIST
+    ====================================================== -->
 
-<span class="close">&times;</span>
+    <div class="results-header">
 
-<h2 id="modalName"></h2>
+        <h2>
+            Ranked Candidates
+        </h2>
 
-<p class="info">
-<b>Role :</b>
-<span id="modalRole"></span>
-</p>
+        <span>
+            Showing top {{ ranked|length }} candidates
+        </span>
 
-<p class="info">
-<b>Company :</b>
-<span id="modalCompany"></span>
-</p>
+    </div>
 
-<p class="info">
-<b>Experience :</b>
-<span id="modalExperience"></span> Years
-</p>
 
-<p class="info">
-<b>Location :</b>
-<span id="modalLocation"></span>
-</p>
+    <section class="candidate-list">
 
-<h2 class="section-title">
-Professional Summary
-</h2>
+        {% for item in ranked %}
 
-<p id="modalSummary"></p>
+        {% set score = item.score %}
 
-<h2 class="section-title">
-Top Skills
-</h2>
+        <article class="candidate-card">
 
-<div id="modalSkills"></div>
 
-<h2 class="section-title">
-Education
-</h2>
+            <!-- =================================================
+                 MAIN ROW
+            ================================================== -->
 
-<ul id="modalEducation"></ul>
+            <div
+                class="candidate-main"
+                onclick="toggleCandidate(this)"
+            >
 
-<h2 class="section-title">
-Career History
-</h2>
+                <div class="rank">
+                    {{ loop.index }}
+                </div>
 
-<div id="modalCareer"></div>
 
-<h2 class="section-title">
-🤖 AI Recommendation
-</h2>
+                <div>
 
-<div
-id="recommendationCard"
-style="
-background:#eef7ff;
-padding:20px;
-border-left:6px solid #2563eb;
-border-radius:12px;
-">
-</div>
+                    <div class="candidate-name">
 
-</div>
+                        {{ item.candidate.profile.anonymized_name
+                           or item.candidate.candidate_id
+                           or "Candidate" }}
 
-</div>
-<script>
+                    </div>
 
-const modal = document.getElementById("candidateModal");
-const closeBtn = document.querySelector(".close");
+                    <div class="candidate-role">
 
-function searchCandidate(){
+                        {{ item.role }}
 
-    let input=document.getElementById("searchInput");
-    let filter=input.value.toUpperCase();
+                        {% if item.company %}
+                            <span class="candidate-company">
+                                · {{ item.company }}
+                            </span>
+                        {% endif %}
 
-    let table=document.getElementById("candidateTable");
+                    </div>
 
-    let tr=table.getElementsByTagName("tr");
+                </div>
 
-    for(let i=1;i<tr.length;i++){
 
-        let td=tr[i].getElementsByTagName("td")[1];
+                <div class="score-box">
 
-        if(td){
+                    <div class="
+                        score
+                        {% if score >= 90 %}
+                            score-high
+                        {% elif score >= 75 %}
+                            score-medium
+                        {% else %}
+                            score-low
+                        {% endif %}
+                    ">
 
-            let txt=td.textContent||td.innerText;
+                        {{ "%.1f"|format(score) }}
 
-            if(txt.toUpperCase().indexOf(filter)>-1){
+                    </div>
 
-                tr[i].style.display="";
+                    <div class="score-label">
+                        FINAL SCORE
+                    </div>
 
-            }else{
+                </div>
 
-                tr[i].style.display="none";
 
-            }
+                <div class="mini-stat">
 
-        }
+                    <strong>
+                        {{ item.job_match_score }}
+                    </strong>
 
-    }
+                    <span>
+                        JD MATCH
+                    </span>
 
-}
+                </div>
 
-function showCandidate(row){
 
-    document.getElementById("modalName").innerText =
-    row.dataset.id;
+                <div class="mini-stat">
 
-    document.getElementById("modalRole").innerText =
-    row.dataset.role;
+                    <strong>
+                        {{ item.experience }}
+                    </strong>
 
-    document.getElementById("modalCompany").innerText =
-    row.dataset.company;
+                    <span>
+                        YEARS
+                    </span>
 
-    document.getElementById("modalExperience").innerText =
-    row.dataset.exp;
+                </div>
 
-    document.getElementById("modalLocation").innerText =
-    row.dataset.location;
 
-    document.getElementById("modalSummary").innerText =
-    row.dataset.summary;
-
-    // Skills
-
-    let skills=document.getElementById("modalSkills");
-
-    skills.innerHTML="";
-
-    row.dataset.skills.split(",").forEach(skill=>{
-
-        let span=document.createElement("span");
-
-        span.className="skill";
-
-        span.innerText=skill.trim();
-
-        skills.appendChild(span);
-
-    });
-
-    // Education
-
-    let education=document.getElementById("modalEducation");
-
-    education.innerHTML="";
-
-    if(row.dataset.education!=""){
-
-        row.dataset.education.split("|||").forEach(edu=>{
-
-            let li=document.createElement("li");
-
-            li.innerText=edu;
-
-            education.appendChild(li);
-
-        });
-
-    }
-
-    // Career
-
-    let career=document.getElementById("modalCareer");
-
-    career.innerHTML="";
-
-    if(row.dataset.career!=""){
-
-        row.dataset.career.split("|||").forEach(job=>{
-
-            career.innerHTML+=`
-
-            <div class="timeline">
-
-            <p>${job}</p>
+                <div class="arrow">
+                    ▼
+                </div>
 
             </div>
 
-            `;
 
-        });
+            <!-- =================================================
+                 CANDIDATE DETAILS
+            ================================================== -->
+
+            <div class="candidate-details">
+
+
+                <div class="detail-grid">
+
+
+                    <!-- =========================================
+                         PROFILE
+                    ========================================== -->
+
+                    <div class="detail-section">
+
+                        <div class="detail-title">
+                            Candidate Profile
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Candidate ID
+                            </span>
+
+                            <span class="info-value">
+
+                                {{ item.candidate.candidate_id
+                                   or "Not available" }}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Current Role
+                            </span>
+
+                            <span class="info-value">
+                                {{ item.role }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Company
+                            </span>
+
+                            <span class="info-value">
+                                {{ item.company }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Experience
+                            </span>
+
+                            <span class="info-value">
+
+                                {{ item.experience }}
+                                years
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Location
+                            </span>
+
+                            <span class="info-value">
+
+                                {{ item.location
+                                   or "Not available" }}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Final Score
+                            </span>
+
+                            <span class="info-value">
+
+                                {{ "%.2f"|format(item.score) }}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                JD Match
+                            </span>
+
+                            <span class="info-value">
+
+                                {{ item.job_match_score }}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Profile Score
+                            </span>
+
+                            <span class="info-value">
+
+                                {{ item.profile_score }}
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         SUMMARY
+                    ========================================== -->
+
+                    <div class="detail-section">
+
+                        <div class="detail-title">
+                            Professional Summary
+                        </div>
+
+                        <div class="detail-text">
+
+                            {{ item.summary
+                               or "No professional summary available." }}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         RECOMMENDATION
+                    ========================================== -->
+
+                    <div class="detail-section">
+
+                        <div class="detail-title">
+                            Recruitment Assessment
+                        </div>
+
+                        <div class="reason">
+
+                            {{ item.reason }}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         MATCHED SKILLS
+                    ========================================== -->
+
+                    <div class="detail-section">
+
+                        <div class="detail-title">
+                            Matched Skills
+                        </div>
+
+                        <div class="skill-list">
+
+                            {% if item.matched_skills %}
+
+                                {% for skill in item.matched_skills %}
+
+                                <span class="skill matched">
+                                    {{ skill }}
+                                </span>
+
+                                {% endfor %}
+
+                            {% else %}
+
+                                <span class="detail-text">
+                                    No matched skills identified.
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         MISSING SKILLS
+                    ========================================== -->
+
+                    <div class="detail-section">
+
+                        <div class="detail-title">
+                            Missing Skills
+                        </div>
+
+                        <div class="skill-list">
+
+                            {% if item.missing_skills %}
+
+                                {% for skill in item.missing_skills %}
+
+                                <span class="skill missing">
+                                    {{ skill }}
+                                </span>
+
+                                {% endfor %}
+
+                            {% else %}
+
+                                <span class="detail-text">
+                                    No significant skill gaps identified.
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         ALL SKILLS
+                    ========================================== -->
+
+                    <div class="detail-section">
+
+                        <div class="detail-title">
+                            Candidate Skills
+                        </div>
+
+                        <div class="skill-list">
+
+                            {% if item.skills %}
+
+                                {% for skill in item.skills %}
+
+                                    {% if skill is mapping %}
+
+                                        <span class="skill">
+
+                                            {{ skill.name }}
+
+                                            {% if skill.proficiency %}
+                                                · {{ skill.proficiency }}
+                                            {% endif %}
+
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="skill">
+                                            {{ skill }}
+                                        </span>
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                            {% else %}
+
+                                <span class="detail-text">
+                                    No skills available.
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         CAREER HISTORY
+                    ========================================== -->
+
+                    <div class="detail-section full">
+
+                        <div class="detail-title">
+                            Career History
+                        </div>
+
+
+                        {% if item.career %}
+
+                            {% for job in item.career %}
+
+                            <div class="career-item">
+
+                                <div class="career-title">
+
+                                    {{ job.title
+                                       or "Role not available" }}
+
+                                </div>
+
+
+                                <div class="career-company">
+
+                                    {{ job.company
+                                       or "Company not available" }}
+
+                                </div>
+
+
+                                <div class="career-meta">
+
+                                    {% if job.start_date %}
+                                        {{ job.start_date }}
+                                    {% endif %}
+
+                                    {% if job.end_date %}
+                                        — {{ job.end_date }}
+                                    {% elif job.is_current %}
+                                        — Present
+                                    {% endif %}
+
+                                    {% if job.duration_months %}
+                                        · {{ job.duration_months }} months
+                                    {% endif %}
+
+                                </div>
+
+
+                                {% if job.description %}
+
+                                <div class="career-description">
+
+                                    {{ job.description }}
+
+                                </div>
+
+                                {% endif %}
+
+                            </div>
+
+                            {% endfor %}
+
+                        {% else %}
+
+                            <div class="detail-text">
+                                No career history available.
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- =========================================
+                         EDUCATION
+                    ========================================== -->
+
+                    <div class="detail-section">
+
+                        <div class="detail-title">
+                            Education
+                        </div>
+
+
+                        {% if item.education %}
+
+                            {% for edu in item.education %}
+
+                            <div class="education-item">
+
+                                <div class="education-degree">
+
+                                    {{ edu.degree
+                                       or "Degree not available" }}
+
+                                    {% if edu.field_of_study %}
+                                        · {{ edu.field_of_study }}
+                                    {% endif %}
+
+                                </div>
+
+
+                                <div class="education-school">
+
+                                    {{ edu.institution
+                                       or "Institution not available" }}
+
+                                </div>
+
+
+                                <div class="education-meta">
+
+                                    {% if edu.start_year %}
+                                        {{ edu.start_year }}
+                                    {% endif %}
+
+                                    {% if edu.end_year %}
+                                        — {{ edu.end_year }}
+                                    {% endif %}
+
+                                    {% if edu.grade %}
+                                        · {{ edu.grade }}
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                            {% endfor %}
+
+                        {% else %}
+
+                            <div class="detail-text">
+                                No education information available.
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- =========================================
+                         LANGUAGES
+                    ========================================== -->
+
+                    <div class="detail-section">
+
+                        <div class="detail-title">
+                            Languages
+                        </div>
+
+
+                        {% if item.languages %}
+
+                            {% for language in item.languages %}
+
+                            <div class="info-row">
+
+                                <span class="info-label">
+
+                                    {% if language is mapping %}
+                                        {{ language.language }}
+                                    {% else %}
+                                        {{ language }}
+                                    {% endif %}
+
+                                </span>
+
+
+                                <span class="info-value">
+
+                                    {% if language is mapping %}
+                                        {{ language.proficiency
+                                           or "" }}
+                                    {% endif %}
+
+                                </span>
+
+                            </div>
+
+                            {% endfor %}
+
+                        {% else %}
+
+                            <div class="detail-text">
+                                No language information available.
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </article>
+
+        {% else %}
+
+
+        <!-- =====================================================
+             EMPTY STATE
+        ====================================================== -->
+
+        <div class="candidate-card">
+
+            <div style="
+                padding:50px;
+                text-align:center;
+                color:#788396;
+            ">
+
+                No candidates were returned from the screening.
+
+            </div>
+
+        </div>
+
+
+        {% endfor %}
+
+    </section>
+
+
+    <div class="footer">
+
+        Logic Forge AI Recruit · Candidate Screening Platform
+
+    </div>
+
+</main>
+
+
+<script>
+
+    function toggleCandidate(element) {
+
+        const card =
+            element.closest(".candidate-card");
+
+        card.classList.toggle("open");
 
     }
-
-    // AI Recommendation
-
-    let score=parseFloat(row.dataset.score);
-
-    let recommendation="";
-    let details="";
-
-    if(score>=95){
-
-        recommendation="⭐⭐⭐⭐⭐ STRONG HIRE";
-
-        details=`
-        ✔ Outstanding AI Score<br>
-        ✔ Excellent Candidate<br>
-        ✔ Highly Recommended
-        `;
-
-    }
-
-    else if(score>=85){
-
-        recommendation="⭐⭐⭐⭐ RECOMMENDED";
-
-        details=`
-        ✔ Good Candidate<br>
-        ✔ Strong Skills
-        `;
-
-    }
-
-    else if(score>=70){
-
-        recommendation="⭐⭐⭐ CONSIDER";
-
-        details=`
-        ✔ Needs Manual Review
-        `;
-
-    }
-
-    else{
-
-        recommendation="⭐⭐ REVIEW";
-
-        details=`
-        ✔ Low AI Score
-        `;
-
-    }
-
-    document.getElementById("recommendationCard").innerHTML=`
-
-    <h2 style="color:#2563eb;">
-    ${recommendation}
-    </h2>
-
-    <br>
-
-    <b>AI Score :</b>
-
-    ${score.toFixed(2)}
-
-    <br><br>
-
-    ${details}
-
-    `;
-
-    modal.style.display="block";
-
-}
-
-closeBtn.onclick=function(){
-
-    modal.style.display="none";
-
-}
-
-window.onclick=function(event){
-
-    if(event.target==modal){
-
-        modal.style.display="none";
-
-    }
-
-}
-
-// Candidate Distribution Chart
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const ctx = document
-        .getElementById("candidateChart")
-        .getContext("2d");
-
-    new Chart(ctx, {
-
-        type: "doughnut",
-
-        data: {
-
-            labels: [
-                "Excellent",
-                "Good",
-                "Average"
-            ],
-
-            datasets: [{
-
-                data: [
-                    {{ excellent }},
-                    {{ good }},
-                    {{ average }}
-                ],
-
-                backgroundColor: [
-                    "#22c55e",
-                    "#facc15",
-                    "#ef4444"
-                ]
-
-            }]
-
-        },
-
-        options: {
-
-            responsive: false,
-
-            plugins: {
-
-                legend: {
-                    position: "bottom"
-                }
-
-            }
-
-        }
-
-    });
-
-});
-
-        document.addEventListener("DOMContentLoaded", function () {
-
-    const ctx = document
-        .getElementById("candidateChart")
-        .getContext("2d");
-
-    new Chart(ctx, {
-
-        type: "doughnut",
-
-        data: {
-
-            labels: [
-                "Excellent",
-                "Good",
-                "Average"
-            ],
-
-            datasets: [{
-
-                data: [
-                    {{ excellent }},
-                    {{ good }},
-                    {{ average }}
-                ],
-
-                backgroundColor: [
-                    "#22c55e",
-                    "#facc15",
-                    "#ef4444"
-                ]
-
-            }]
-
-        },
-
-        options: {
-
-            responsive: false,
-
-            plugins: {
-
-                legend: {
-                    position: "bottom"
-                }
-
-            }
-
-        }
-
-    });
-
-});
 
 </script>
 
 </body>
-
 </html>

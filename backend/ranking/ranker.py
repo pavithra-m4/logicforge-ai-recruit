@@ -1,33 +1,118 @@
 from backend.ranking.scoring import calculate_score
+from backend.matching.matcher import calculate_match
 
 
-def rank_candidates(candidates):
+def rank_candidates(
+    candidates,
+    job_text=""
+):
+    """
+    Rank candidates using a genuine 0-100 score.
+
+    The score is based on:
+        - Job Description match
+        - Experience
+        - Candidate profile signals
+        - Technical skills
+    """
 
     ranked = []
 
-    # Calculate raw scores
     for candidate in candidates:
 
-        raw_score = calculate_score(candidate)
+        # --------------------------------------------------
+        # Job-specific match
+        # --------------------------------------------------
 
-        ranked.append((raw_score, candidate))
+        if job_text:
 
-    # Sort by raw score
-    ranked.sort(reverse=True, key=lambda x: x[0])
+            job_match, matched, missing = calculate_match(
+                job_text,
+                candidate
+            )
 
-    # Normalize to 0-100
-    if ranked:
+        else:
 
-        max_score = ranked[0][0]
+            job_match = 0
+            matched = []
+            missing = []
 
-        normalized = []
+        # --------------------------------------------------
+        # Existing candidate profile score
+        # --------------------------------------------------
 
-        for score, candidate in ranked:
+        profile_score = calculate_score(
+            candidate
+        )
 
-            final_score = round((score / max_score) * 100, 2)
+        # calculate_score should represent
+        # candidate quality from 0-100.
+        profile_score = min(
+            max(
+                profile_score,
+                0
+            ),
+            100
+        )
 
-            normalized.append((final_score, candidate))
+        # --------------------------------------------------
+        # Final score
+        # --------------------------------------------------
+        #
+        # Job match       = 70%
+        # Candidate profile = 30%
+        #
+        # Job-specific fit is intentionally dominant.
+        # --------------------------------------------------
 
-        return normalized
+        final_score = (
+            job_match * 0.70
+            +
+            profile_score * 0.30
+        )
 
-    return []
+        final_score = round(
+            min(
+                max(
+                    final_score,
+                    0
+                ),
+                100
+            ),
+            2
+        )
+
+        # Store matching information
+        # so the results page can display it.
+
+        candidate["_job_match_score"] = round(
+            job_match,
+            2
+        )
+
+        candidate["_profile_score"] = round(
+            profile_score,
+            2
+        )
+
+        candidate["_matched_skills"] = matched
+
+        candidate["_missing_skills"] = missing
+
+        ranked.append(
+            (
+                final_score,
+                candidate
+            )
+        )
+
+    # ------------------------------------------------------
+    # Highest score first
+    # ------------------------------------------------------
+
+    ranked.sort(
+        key=lambda item: item[0],
+        reverse=True
+    )
+
+    return ranked
